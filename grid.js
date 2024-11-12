@@ -21,7 +21,7 @@ export default class Grid {
     return grid;
   }
 
-  #isWithinGrid({ row, col }) {
+  isWithinGrid({ row, col }) {
     return row >= 0 && row < this.#rows && col >= 0 && col < this.#cols;
   }
 
@@ -71,16 +71,16 @@ export default class Grid {
   neighbours({ row, col }) {
     const neighbours = [];
     const directions = [
-      { row: 1, col: -1 }, //SW
+      // { row: 1, col: -1 }, //SW
       { row: 0, col: -1 }, // W
-      { row: -1, col: -1 }, // NW
+      // { row: -1, col: -1 }, // NW
       { row: -1, col: 0 }, // N
-      { row: -1, col: 1 }, // NE
+      // { row: -1, col: 1 }, // NE
       { row: 0, col: 1 }, // E
-      { row: 1, col: 1 }, // SE
+      // { row: 1, col: 1 }, // SE
       { row: 1, col: 0 }, // S
     ];
-    if (this.#isWithinGrid({ row: row, col: col })) {
+    if (this.isWithinGrid({ row: row, col: col })) {
       for (const direction of directions) {
         const newRow = row + direction.row;
         const newCol = col + direction.col;
@@ -108,7 +108,7 @@ export default class Grid {
 
   nextInRow(coords, row, col) {
     const { row: r, col: c } = this.#convertCoordinates(coords, row, col);
-    if (this.#isWithinGrid({ row: r, col: c }) && c < this.#cols - 1) {
+    if (this.isWithinGrid({ row: r, col: c }) && c < this.#cols - 1) {
       const nextCol = c + 1;
       return { row: r, col: nextCol, value: this.#grid[r][nextCol] };
     }
@@ -116,7 +116,7 @@ export default class Grid {
 
   nextInCol(coords, row, col) {
     const { row: r, col: c } = this.#convertCoordinates(coords, row, col);
-    if (this.#isWithinGrid({ row: r, col: c }) && r < this.#rows - 1) {
+    if (this.isWithinGrid({ row: r, col: c }) && r < this.#rows - 1) {
       const nextRow = r + 1;
       return { row: nextRow, col: c, value: this.#grid[nextRow][c] };
     }
@@ -124,7 +124,7 @@ export default class Grid {
 
   north(coords, row, col) {
     const { row: r, col: c } = this.#convertCoordinates(coords, row, col);
-    if (this.#isWithinGrid({ row: r, col: c })) {
+    if (this.isWithinGrid({ row: r, col: c })) {
       const prevRow = r - 1;
       return { row: prevRow, col: c, value: this.#grid[prevRow][c] };
     }
@@ -137,7 +137,7 @@ export default class Grid {
 
   west(coords, row, col) {
     const { row: r, col: c } = this.#convertCoordinates(coords, row, col);
-    if (this.#isWithinGrid({ row: r, col: c })) {
+    if (this.isWithinGrid({ row: r, col: c })) {
       const prevCol = c - 1;
       return { row: r, col: prevCol, value: this.#grid[r][prevCol] };
     }
